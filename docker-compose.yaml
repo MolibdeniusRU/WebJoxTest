@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: app
+    image: bitnami/symfony:latest
+    volumes:
+      - ./app/:/app/
+    environment:
+      SYMFONY_PROJECT_SKELETON: symfony/skeleton
+      SYMFONY_DATABASE_HOST: mysql
+      SYMFONY_DATABASE_NAME: WebJoxTest
+      SYMFONY_DATABASE_USER: webjoxtest
+      SYMFONY_DATABASE_PASSWORD: webjoxtest
+    ports:
+      - "8000:8000"
+
+  db:
+    image: mysql
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: WebJoxTest
+      MYSQL_USER: webjoxtest
+      MYSQL_PASSWORD: webjoxtest
+    volumes:
+      - ./db/data:/var/lib/mysql:rw
+    ports:
+      - "3306:3306"
+
