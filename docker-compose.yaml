@@ -8,24 +8,28 @@ services:
       - ./app/:/app/
     environment:
       SYMFONY_PROJECT_SKELETON: symfony/skeleton
-      SYMFONY_DATABASE_HOST: mysql
+      SYMFONY_DATABASE_HOST: db
       SYMFONY_DATABASE_NAME: WebJoxTest
       SYMFONY_DATABASE_USER: webjoxtest
       SYMFONY_DATABASE_PASSWORD: webjoxtest
+      BITNAMI_DEBUG: true
+
     ports:
       - "8000:8000"
 
+  ###> doctrine/doctrine-bundle ###
   db:
-    image: mysql
-    restart: always
-    command: --default-authentication-plugin=mysql_native_password
+    container_name: db
+    image: postgres:${POSTGRES_VERSION:-16}-alpine
     environment:
-      MYSQL_ROOT_PASSWORD: test
-      MYSQL_DATABASE: WebJoxTest
-      MYSQL_USER: webjoxtest
-      MYSQL_PASSWORD: webjoxtest
-    volumes:
-      - ./db/data:/var/lib/mysql:rw
+      POSTGRES_DB: ${POSTGRES_DB:-WebJoxTest}
+      # You should definitely change the password in production
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-webjoxtest}
+      POSTGRES_USER: ${POSTGRES_USER:-webjoxtest}
     ports:
-      - "3306:3306"
+      - "5432:5432"
+    volumes:
+      - ./db/data:/var/lib/postgresql/data:rw
+  ###< doctrine/doctrine-bundle ###
+
 
