@@ -6,6 +6,7 @@ services:
     image: bitnami/symfony:latest
     volumes:
       - ./app/:/app/
+      - ./app/config/php-conf/:/opt/bitnami/php/etc/conf.d/
     environment:
       SYMFONY_PROJECT_SKELETON: symfony/skeleton
       SYMFONY_DATABASE_HOST: db
@@ -13,9 +14,9 @@ services:
       SYMFONY_DATABASE_USER: webjoxtest
       SYMFONY_DATABASE_PASSWORD: webjoxtest
       BITNAMI_DEBUG: true
-
     ports:
       - "8000:8000"
+
 
   ###> doctrine/doctrine-bundle ###
   db:
