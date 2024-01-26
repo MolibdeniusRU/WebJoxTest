@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -45,7 +46,7 @@ class PostCrudController extends AbstractCrudController
             'Опубликовать' => 'опубликованно',
             'Отложить' => 'черновик',
         ]);
-        yield TextField::new('photoFilename', 'Фото')->hideOnIndex();
+        yield ImageField::new('photoFilename', 'Фото')->setUploadDir('public/uploads/images');
 
         $createAt = DateTimeField::new('createAt', 'Дата создания')->setFormTypeOptions([
             'years' => range(date('Y'), (int)date('Y') + 5),

@@ -17,9 +17,6 @@ class Post
     #[ORM\Column]
     private ?\DateTimeImmutable $createAt = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updateAt = null;
-
     #[ORM\Column(length: 255)]
     private ?string $state = null;
 
@@ -45,18 +42,6 @@ class Post
     public function setCreateAt(\DateTimeImmutable $createAt): static
     {
         $this->createAt = $createAt;
-
-        return $this;
-    }
-
-    public function getUpdateAt(): ?\DateTimeImmutable
-    {
-        return $this->updateAt;
-    }
-
-    public function setUpdateAt(\DateTimeImmutable $updateAt): static
-    {
-        $this->updateAt = $updateAt;
 
         return $this;
     }
