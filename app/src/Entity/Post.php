@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Post
 {
     #[ORM\Id]
@@ -29,6 +30,11 @@ class Post
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
+    #[ORM\PrePersist]
+    public function setCreateAtValue()
+    {
+        $this->createAt = new \DateTimeImmutable();
+    }
     public function getId(): ?int
     {
         return $this->id;

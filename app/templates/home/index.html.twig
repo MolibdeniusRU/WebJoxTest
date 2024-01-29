@@ -6,6 +6,21 @@
     <h2>Тестовый Блог</h2>
 
     {% for post in posts %}
-        <h4>{{ post.content }}</h4>
+        {% if post.photoFilename %}
+            <img src="{{ asset('uploads/images/' ~ post.photoFilename) }}" style="max-width: 200px"   alt=""/>
+        {% endif %}
+        <h4>{{ post.tag }}</h4>
+        {#<small>
+            {{ post.createAt|format_datetime() }}
+        </small>#}
+
+        <p>{{ post.content }}</p>
+
     {% endfor %}
+    {% if previous >= 0 %}
+        <a href="{{ path('Home', { offset: previous }) }}">Previous</a>
+    {% endif %}
+    {% if next < posts|length %}
+        <a href="{{ path('Home', { offset: next }) }}">Next</a>
+    {% endif %}
 {% endblock %}

@@ -43,8 +43,8 @@ class PostCrudController extends AbstractCrudController
         yield AssociationField::new('tag', 'Категория');
         yield TextareaField::new('content', 'Контент')->hideOnIndex();
         yield ChoiceField::new('state', 'Состояние')->setChoices([
-            'Опубликовать' => 'опубликованно',
-            'Отложить' => 'черновик',
+            'Опубликовано' => 'published',
+            'Черновик' => 'draft',
         ]);
         yield ImageField::new('photoFilename', 'Фото')->setUploadDir('public/uploads/images');
 
@@ -55,8 +55,6 @@ class PostCrudController extends AbstractCrudController
 
         if (Crud::PAGE_EDIT === $pageName) {
             yield $createAt->setFormTypeOption('disabled', true);
-        } else {
-            yield $createAt;
         }
 
     }
