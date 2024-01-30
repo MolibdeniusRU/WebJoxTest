@@ -3,6 +3,8 @@ version: "3.8"
 name: "webjoxtest"
 services:
   app:
+    depends_on:
+      - db
     container_name: app
     image: bitnami/symfony:latest
     volumes:
@@ -31,6 +33,7 @@ services:
       - "5432:5432"
     volumes:
       - ./../db/data:/var/lib/postgresql/data:rw
+      - ./../db/dump/:/docker-entrypoint-initdb.d/
     labels:
       com.symfony.server.service-prefix: 'DATABASE'
 ###< doctrine/doctrine-bundle ###
