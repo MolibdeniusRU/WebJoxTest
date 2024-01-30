@@ -6,21 +6,62 @@
     <h2>Тестовый Блог</h2>
 
     {% for post in posts %}
+        <div class="media shadow border rounded-3 p-3 mb-4">
+            <div class="post-img me-3">
         {% if post.photoFilename %}
-            <img src="{{ asset('uploads/images/' ~ post.photoFilename) }}" style="max-width: 200px"   alt=""/>
+            <a href="{{ asset('uploads/images/' ~ post.photofilename) }}" target="_blank">
+                <img src="{{ asset('uploads/images/' ~ post.photofilename) }}" />
+            </a>
         {% endif %}
-        <h4>{{ post.tag }}</h4>
-        {#<small>
-            {{ post.createAt|format_datetime() }}
-        </small>#}
+            </div>
+            <div class="media-body">
+                <h4 class="font-weight-light mb-0">
+                    {{ post.tag }}
+                </h4>
 
-        <p>{{ post.content }}</p>
+                <div class="mb-2">
+                    <small class="text-muted text-uppercase">
+                        {{ post.createAt|date('Y-m-d H:i:s') }}
+                    </small>
+                </div>
+
+                <div class="post-content">
+                    {{ post.content|nl2br }}
+                </div>
+            </div>
+        </div>
+
+
 
     {% endfor %}
-    {% if previous >= 0 %}
-        <a href="{{ path('Home', { offset: previous }) }}">Previous</a>
-    {% endif %}
-    {% if next < posts|length %}
-        <a href="{{ path('Home', { offset: next }) }}">Next</a>
-    {% endif %}
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                {% if previous >= 0 %}
+                    <a class="page-link" href="{{ path('Home', { offset: previous }) }}">Previous</a>
+                {% endif %}
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                {% if next < posts|length %}
+                    <a class="page-link" href="{{ path('Home', { offset: next }) }}">Next</a>
+                {% endif %}
+            </li>
+            <li class="page-item">
+                <div class="dropdown">
+                    <a class="btn btn-primary dropdown-toggle btn-sm" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        Отображать на странице по {{ perPage }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="{{ path('Home', { offset: previous, perPage: 2 }) }}">2</a></li>
+                        <li><a class="dropdown-item" href="{{ path('Home', { offset: previous, perPage: 5 }) }}">5</a></li>
+                        <li><a class="dropdown-item" href="{{ path('Home', { offset: previous, perPage: 10 }) }}">10</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
 {% endblock %}

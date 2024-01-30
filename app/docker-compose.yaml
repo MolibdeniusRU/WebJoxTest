@@ -1,24 +1,24 @@
 version: "3.8"
 
+name: "webjoxtest"
 services:
   app:
     container_name: app
     image: bitnami/symfony:latest
     volumes:
-      - ./app/:/app/
-      - ./app/config/php-conf/:/opt/bitnami/php/etc/conf.d/
+      - ./:/app/
+      - ./config/php-conf/:/opt/bitnami/php/etc/conf.d/
     environment:
       SYMFONY_PROJECT_SKELETON: symfony/skeleton
       SYMFONY_DATABASE_HOST: db
       SYMFONY_DATABASE_NAME: WebJoxTest
       SYMFONY_DATABASE_USER: webjoxtest
       SYMFONY_DATABASE_PASSWORD: webjoxtest
-      BITNAMI_DEBUG: true
     ports:
       - "8000:8000"
 
 
-  ###> doctrine/doctrine-bundle ###
+###> doctrine/doctrine-bundle ###
   db:
     container_name: db
     image: postgres:${POSTGRES_VERSION:-16}-alpine
@@ -30,7 +30,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./db/data:/var/lib/postgresql/data:rw
-  ###< doctrine/doctrine-bundle ###
-
+      - ./../db/data:/var/lib/postgresql/data:rw
+    labels:
+      com.symfony.server.service-prefix: 'DATABASE'
+###< doctrine/doctrine-bundle ###
 

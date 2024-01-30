@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -23,13 +26,21 @@ class PostCrudController extends AbstractCrudController
         return Post::class;
     }
 
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->setPermission(Action::NEW, User::ROLE_ADMIN)
+            ->setPermission(Action::DELETE, User::ROLE_ADMIN);
+    }
+
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
             ->setEntityLabelInSingular('Post')
             ->setEntityLabelInPlural('Posts')
             ->setSearchFields(['state'])
-            ->setDefaultSort(['createAt' => 'DESC']);
+            ->setDefaultSort(['createAt' => 'DESC'])
+            ->setPaginatorPageSize(10);
     }
 
     public function configureFilters(Filters $filters): Filters

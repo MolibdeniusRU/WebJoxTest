@@ -24,12 +24,14 @@ class HomeController extends AbstractController
     public function index(Request $request, PostRepository $postRepository): Response
     {
         $offset = max(0, $request->query->getInt('offset', 0));
-        $paginator = $postRepository->getPostPaginator($offset);
+        $perPage = $request->query->getInt('perPage', PostRepository::PAGINATOR_PER_PAGE);
+        $paginator = $postRepository->getPostPaginator($offset, $perPage);
 
         return $this->render('home/index.html.twig', [
             'posts' => $paginator,
-            'previous' => $offset - PostRepository::PAGINATOR_PER_PAGE,
-            'next' => min(count($paginator), $offset + PostRepository::PAGINATOR_PER_PAGE),
+            'perPage' => $perPage,
+            'previous' => $offset - $perPage,
+            'next' => min(count($paginator), $offset + $perPage),
             ]);
     }
 }

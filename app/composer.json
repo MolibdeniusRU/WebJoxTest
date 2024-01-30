@@ -17,9 +17,12 @@
     "symfony/dotenv": "7.0.*",
     "symfony/flex": "^2",
     "symfony/framework-bundle": "7.0.*",
+    "symfony/mailer": "7.0.*",
     "symfony/mime": "7.0.*",
     "symfony/runtime": "7.0.*",
+    "symfony/webpack-encore-bundle": "^2.1",
     "symfony/yaml": "7.0.*",
+    "symfonycasts/verify-email-bundle": "^1.16",
     "twig/intl-extra": "^3"
   },
   "config": {
