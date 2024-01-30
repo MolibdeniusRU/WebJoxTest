@@ -41,25 +41,26 @@
                     <a class="page-link" href="{{ path('Home', { offset: previous }) }}">Previous</a>
                 {% endif %}
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <div class="dropdown">
+                    <a class="btn btn-primary dropdown-toggle btn-sm" role="button" id="dropdownMenuLink"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Отображать на странице по {{ perPage }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="{{ path('Home', { offset: previous, perPage: 2 }) }}">2</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{ path('Home', { offset: previous, perPage: 5 }) }}">5</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{ path('Home', { offset: previous, perPage: 10 }) }}">10</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="page-item">
                 {% if next < posts|length %}
                     <a class="page-link" href="{{ path('Home', { offset: next }) }}">Next</a>
                 {% endif %}
-            </li>
-            <li class="page-item">
-                <div class="dropdown">
-                    <a class="btn btn-primary dropdown-toggle btn-sm" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        Отображать на странице по {{ perPage }}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="{{ path('Home', { offset: previous, perPage: 2 }) }}">2</a></li>
-                        <li><a class="dropdown-item" href="{{ path('Home', { offset: previous, perPage: 5 }) }}">5</a></li>
-                        <li><a class="dropdown-item" href="{{ path('Home', { offset: previous, perPage: 10 }) }}">10</a></li>
-                    </ul>
-                </div>
             </li>
         </ul>
 
