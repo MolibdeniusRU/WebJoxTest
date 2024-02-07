@@ -3,7 +3,7 @@
 ## Порядок запуска проекта:
 
 1. Для запуска проекта небходимо
-   установить [Docker](https://www.docker.com/), [Nodejs](https://nodejs.org/), [PHP](https://www.php.net/), [Composer](https://getcomposer.org/)
+   установить [Docker](https://www.docker.com/), [Nodejs ver.20](https://nodejs.org/), [PHP ver.8.2](https://www.php.net/), [Composer](https://getcomposer.org/)
 2. Склонировать локально репозиторий
 
 ````console
@@ -16,7 +16,8 @@ git clone git@github.com:MolibdeniusRU/WebJoxTest.git
 
 ````console
 composer install
-npm install 
+npm install
+npm build 
 docker-compose up -d
 ````
 
